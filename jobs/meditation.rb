@@ -1,4 +1,5 @@
 require 'csv'
+require 'active_support/time'
 require 'pry'
 
 points = []
@@ -19,4 +20,7 @@ end
 
 points.reverse!
 
+points_last_month = points.select { |p| p[:x] > 1.month.ago.to_i }
+
 send_event('meditation-all-time', points: points)
+send_event('meditation-last-month', points: points_last_month)
