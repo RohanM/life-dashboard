@@ -1,1 +1,8 @@
-Check out http://smashing.github.io/ for more information.
+# Life Dashboard
+
+## TODO
+
+### Insight Timer
+
+- [x] Fetch Insight Timer records from website
+- [ ] Display graph on dashboard
