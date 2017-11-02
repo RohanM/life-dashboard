@@ -32,11 +32,11 @@ SCHEDULER.every '1m' do
     {x: day.to_time.to_i, y: minutes_per_day[day]}
   end
 
-  points_last_year = points_monthly.select { |p| p[:x] > 1.year.ago.to_i }
-  points_last_month = points_daily.select { |p| p[:x] > 1.month.ago.to_i }
-  points_last_week = points_daily.select { |p| p[:x] > 1.week.ago.to_i }
+  points_last_year = points_monthly.select { |p| p[:x] >= 1.year.ago.to_i }
+  points_last_month = points_daily.select { |p| p[:x] >= 1.month.ago.to_i }
+  points_last_week = points_daily.select { |p| p[:x] >= 1.week.ago.to_i }
 
-  send_event('meditation-last-year', points: points_last_year)
-  send_event('meditation-last-month', points: points_last_month)
-  send_event('meditation-last-week', points: points_last_week)
+  send_event('meditation-last-year', {points: points_last_year})
+  send_event('meditation-last-month', {points: points_last_month})
+  send_event('meditation-last-week', {points: points_last_week, graphtype: 'bar'})
 end
