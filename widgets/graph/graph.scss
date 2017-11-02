@@ -30,6 +30,10 @@ $tick-color:        rgba(0, 0, 0, 0.4);
     z-index: 99;
   }
 
+  .value {
+    display: none;
+  }
+
   .title {
     color: $title-color;
   }
