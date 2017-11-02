@@ -25,7 +25,7 @@ SCHEDULER.every '1m' do
   end
 
   points_monthly = minutes_per_month.keys.sort.map do |month|
-    {x: month.to_time.to_i, y: minutes_per_month[month] / 60}
+    {x: month.to_time.to_i, y: minutes_per_month[month] / Time.days_in_month(month.month, month.year)}
   end
 
   points_daily = minutes_per_day.keys.sort.map do |day|
