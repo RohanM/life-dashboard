@@ -36,6 +36,15 @@ SCHEDULER.every '1m' do
   points_last_month = points_daily.select { |p| p[:x] >= 1.month.ago.to_i }
   points_last_week = points_daily.select { |p| p[:x] >= 1.week.ago.to_i }
 
+  # -- Show days with no record
+  (1..7).each do |days_ago|
+    day = days_ago.days.ago.beginning_of_day.to_i
+    unless points_last_week.find { |p| p[:x] == day }
+      points_last_week << {x: day, y: 0}
+    end
+  end
+  points_last_week = points_last_week.sort_by {|p| p[:x]}
+
   send_event('meditation-last-year', {points: points_last_year})
   send_event('meditation-last-month', {points: points_last_month})
   send_event('meditation-last-week', {points: points_last_week, graphtype: 'bar'})
