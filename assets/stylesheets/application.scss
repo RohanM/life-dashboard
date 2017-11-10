@@ -256,3 +256,10 @@ h3 {
 .clearfix:after { clear: both; }
 .clearfix { zoom: 1; }
 
+
+// ----------------------------------------------------------------------------
+// Customised styles
+// ----------------------------------------------------------------------------
+.widget-graph.map-my-run-intervals .value {
+  display: block;
+}
