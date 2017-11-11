@@ -13,12 +13,13 @@ class Dashing.EditText extends Dashing.Widget
       $(@node).find(".edit").show()
 
     $(@node).find(".edit button").click =>
-      @set('text', $(@node).find(".edit textarea").val())
+      @save $(@node).find(".edit textarea").val()
       $(@node).find(".edit").hide()
       $(@node).find(".text").show()
 
+  save: (text) ->
+    data = JSON.stringify {event: 'edit-text', id: $(@node).data('id'), text: text}
+    $.post('/events', data)
 
   onData: (data) ->
-    # Handle incoming data
-    # You can access the html node of this widget with `@node`
-    # Example: $(@node).fadeOut().fadeIn() will make the node flash each time data comes in.
+    @set('text', data.text)

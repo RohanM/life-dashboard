@@ -1,6 +1,6 @@
 # Life Dashboard
 
-## Insight Timer
+## Crontab
 
 Install crontab lines:
 
@@ -8,3 +8,9 @@ Install crontab lines:
 `0 2 * * * bin/fetch_map_my_run.sh <email> <password> > /path/to/life-dashboard/map_my_run.csv`
 
 Run this at least once.
+
+
+## TODO
+
+- Store CSVs in data/
+- Store cookies in tmp/
