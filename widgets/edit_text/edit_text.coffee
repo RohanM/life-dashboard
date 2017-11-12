@@ -2,24 +2,27 @@ class Dashing.EditText extends Dashing.Widget
 
   ready: ->
     # Pick whether to display text or editing interface first
-    if @get('text')?
-      $(@node).find(".text").show()
+    if @get('content')?
+      $(@node).find(".content").show()
     else
       $(@node).find(".edit").show()
 
     # Wire up the things
-    $(@node).find(".text").click =>
-      $(@node).find(".text").hide()
+    $(@node).find(".content").click =>
+      $(@node).find(".content").hide()
       $(@node).find(".edit").show()
 
     $(@node).find(".edit button").click =>
       @save $(@node).find(".edit textarea").val()
       $(@node).find(".edit").hide()
-      $(@node).find(".text").show()
+      $(@node).find(".content").show()
 
-  save: (text) ->
-    data = JSON.stringify {event: 'edit-text', id: $(@node).data('id'), text: text}
+  save: (content) ->
+    data = JSON.stringify {event: 'edit-text', id: $(@node).data('id'), content: content}
     $.post('/events', data)
 
   onData: (data) ->
-    @set('text', data.text)
+    converter = new showdown.Converter()
+    html      = converter.makeHtml(data.content)
+    @set('markdown', data.content)
+    @set('content', html)
