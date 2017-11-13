@@ -112,10 +112,6 @@ h3 {
 // ----------------------------------------------------------------------------
 // Base widget styles
 // ----------------------------------------------------------------------------
-.gridster {
-  margin: 0px auto;
-}
-
 .icon-background {
   pointer-events: none;
   width: 100%!important;
@@ -130,10 +126,6 @@ h3 {
 }
 
 .list-nostyle {
-  list-style: none;
-}
-
-.gridster ul {
   list-style: none;
 }
 
@@ -192,45 +184,6 @@ h3 {
   bottom: 12px;
   left: 0;
   right: 0;
-}
-
-#save-gridster {
-  display: none;
-  position: fixed;
-  top: 0;
-  margin: 0px auto;
-  left: 50%;
-  z-index: 1000;
-  background: black;
-  width: 190px;
-  text-align: center;
-  border: 1px solid white;
-  border-top: 0px;
-  margin-left: -95px;
-  padding: 15px;
-}
-
-#save-gridster:hover {
-  padding-top: 25px;
-}
-
-#saving-instructions {
-  display: none;
-  padding: 10px;
-  width: 500px;
-  height: 122px;
-  z-index: 1000;
-  background: white;
-  top: 100px;
-  color: black;
-  font-size: 15px;
-  padding-bottom: 4px;
-
-  textarea {
-    white-space: nowrap;
-    width: 494px;
-    height: 80px;
-  }
 }
 
 #lean_overlay {
