@@ -1,11 +1,14 @@
 .widget-edit-text {
   .content, .edit {
     display: none;
+    padding: 5px;
   }
 
   .content {
     width: 100%;
     height: 100%;
+    font-size: 14px;
+    text-align: left;
   }
 
   .edit {
