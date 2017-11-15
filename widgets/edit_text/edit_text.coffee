@@ -12,7 +12,12 @@ class Dashing.EditText extends Dashing.Widget
       $(@node).find(".content").hide()
       $(@node).find(".edit").show()
 
-    $(@node).find(".edit button").click =>
+    $(@node).find(".edit button").click => @updateContent()
+    $(@node).find(".edit textarea").keydown (e) =>
+      if e.ctrlKey && e.keyCode == 13
+        @updateContent()
+
+  updateContent: ->
       @save $(@node).find(".edit textarea").val()
       $(@node).find(".edit").hide()
       $(@node).find(".content").show()
