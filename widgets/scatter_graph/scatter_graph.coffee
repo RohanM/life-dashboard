@@ -3,12 +3,10 @@ class Dashing.ScatterGraph extends Dashing.Widget
   ready: ->
     container = $(@node).parent()
     # Gross hacks. Let's fix this.
-    width = (Dashing.widget_base_dimensions[0] * container.data("sizex")) + Dashing.widget_margins[0] * 2 * (container.data("sizex") - 1)
-    height = (Dashing.widget_base_dimensions[1] * container.data("sizey"))
     @graph = new Rickshaw.Graph(
       element: @node
-      width: width
-      height: height
+      width: container.width()
+      height: container.height()
       renderer: 'scatterplot'
       series: [
         {
