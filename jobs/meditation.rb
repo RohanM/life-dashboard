@@ -6,7 +6,7 @@ SCHEDULER.every '1m' do
   minutes_per_day = {}
   minutes_per_month = {}
 
-  CSV.foreach('insight_sessions_export.csv') do |row|
+  CSV.foreach('data/insight_sessions_export.csv') do |row|
     begin
       started_at = Time.strptime "#{row[0]} +0000", "%m/%d/%Y %H:%M:%S %z"
       duration = row[1]

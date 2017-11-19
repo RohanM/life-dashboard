@@ -7,7 +7,7 @@ require 'pry'
 
 SCHEDULER.every '1m' do
   workout_dates = []
-  CSV.foreach('map_my_run.csv') do |row|
+  CSV.foreach('data/map_my_run.csv') do |row|
     next if row[1] == 'Workout Date' # Skip header row
     workout_dates << Date.parse(row[1])
   end
