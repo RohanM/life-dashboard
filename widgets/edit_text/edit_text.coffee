@@ -11,6 +11,7 @@ class Dashing.EditText extends Dashing.Widget
     $(@node).find(".content").click =>
       $(@node).find(".content").hide()
       $(@node).find(".edit").show()
+      $(@node).find(".edit textarea").focus()
 
     $(@node).find(".edit button").click => @updateContent()
     $(@node).find(".edit textarea").keydown (e) =>
