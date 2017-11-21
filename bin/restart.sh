@@ -1,5 +1,5 @@
 #!/bin/bash
 
-./stop
+killall ruby2.4
 sleep 5
-./start
+nohup smashing start -p 12922 &
