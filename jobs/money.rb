@@ -37,7 +37,7 @@ def top_expense_tags_graph(expenses)
     to_a.
     sort_by { |e| e[1] }.
     reverse.
-    first(10).
+    first(8).
     each_with_index.
     map do |(tag, amount), i|
 
@@ -45,10 +45,26 @@ def top_expense_tags_graph(expenses)
   end
 end
 
-expenses = load_expenses
-recent_expenses = recent(expenses)
-tagged_expenses = expenses_by_tag(recent_expenses)
-top_expense_points = top_expense_tags_graph(tagged_expenses)
-top_expense_point_labels = top_expense_points.map { |p| p[:label] }
+def top_expense_tags_table(expenses)
+  [['Category', 'Amount']] +
 
-send_event('money-top-expenses', points: top_expense_points, graphtype: 'bar', x_labels: top_expense_point_labels)
+    expenses.
+      to_a.
+      sort_by { |e| e[1] }.
+      reverse.map { |tag, amount| [tag.capitalize, amount] } +
+
+    [['', ''],
+     ['Total', expenses.values.sum]]
+end
+
+SCHEDULER.every '1m' do
+  expenses = load_expenses
+  recent_expenses = recent(expenses)
+  tagged_expenses = expenses_by_tag(recent_expenses)
+  top_expense_points = top_expense_tags_graph(tagged_expenses)
+  top_expense_point_labels = top_expense_points.map { |p| p[:label] }
+  top_expenses_table = top_expense_tags_table(tagged_expenses)
+
+  send_event('money-top-expenses', points: top_expense_points, graphtype: 'bar', x_labels: top_expense_point_labels)
+  send_event('money-top-expenses-table', table: top_expenses_table)
+end
