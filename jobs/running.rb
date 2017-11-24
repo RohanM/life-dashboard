@@ -17,7 +17,7 @@ SCHEDULER.every '1m' do
   pace_points = paces(recent_workouts)
 
   send_event('map-my-run-intervals', {points: interval_points, graphtype: 'bar'})
-  send_event('map-my-run-pace', {points: pace_points, graphtype: 'bar'})
+  send_event('map-my-run-pace', {points: pace_points})
 end
 
 def intervals(workouts)
