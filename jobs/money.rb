@@ -41,7 +41,7 @@ def top_expense_tags_graph(expenses)
     each_with_index.
     map do |(tag, amount), i|
 
-    {x: i, y: amount}
+    {x: i, y: amount, label: tag}
   end
 end
 
@@ -49,5 +49,6 @@ expenses = load_expenses
 recent_expenses = recent(expenses)
 tagged_expenses = expenses_by_tag(recent_expenses)
 top_expense_points = top_expense_tags_graph(tagged_expenses)
+top_expense_point_labels = top_expense_points.map { |p| p[:label] }
 
-send_event('money-top-expenses', points: top_expense_points, graphtype: 'bar')
+send_event('money-top-expenses', points: top_expense_points, graphtype: 'bar', x_labels: top_expense_point_labels)
