@@ -6,7 +6,10 @@ class Dashing.Table extends Dashing.Widget
     for row in data.table
       rowDOM = $("<tr></tr>")
       for col in row
-        colDOM = $("<td>#{col}</td>")
+        if row == data.table[0]
+          colDOM = $("<th>#{col}</th>")
+        else
+          colDOM = $("<td>#{col}</td>")
         rowDOM.append colDOM
       tableDOM.append(rowDOM)
 

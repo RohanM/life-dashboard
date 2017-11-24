@@ -1,2 +1,14 @@
 .widget-table {
+  padding: 5px;
+
+  table {
+    th, td {
+      text-align: left;
+    }
+
+    tr {
+      border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    }
+  }
+
 }

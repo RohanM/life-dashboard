@@ -51,10 +51,10 @@ def top_expense_tags_table(expenses)
     expenses.
       to_a.
       sort_by { |e| e[1] }.
-      reverse.map { |tag, amount| [tag.capitalize, amount] } +
+      reverse.map { |tag, amount| [tag.capitalize, "$#{"%.2f" % amount}"] } +
 
     [['', ''],
-     ['Total', expenses.values.sum]]
+     ['Total', "$#{"%.2f" % expenses.values.sum}"]]
 end
 
 SCHEDULER.every '1m' do
