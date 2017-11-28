@@ -29,6 +29,7 @@ class Dashing.EditText extends Dashing.Widget
 
   onData: (data) ->
     converter = new showdown.Converter()
+    converter.setFlavor('github')
     html      = converter.makeHtml(data.content)
     @set('markdown', data.content)
     @set('content', html)
