@@ -11,10 +11,7 @@ SCHEDULER.every '1m' do |job|
   trackers = load_trackers(data)
   events = load_events(data)
 
-  social_events = events_for_tracker(trackers, events, "Feeling connected / supported")
-  interval_points = event_intervals(social_events.last(10))
-
-  send_event('nomie-social-intervals', {points: interval_points, graphtype: 'bar'})
+  send_intervals_for_tracker(trackers, events, "Feeling connected / supported", 'nomie-social-intervals')
 end
 
 def load_trackers(data)
@@ -47,4 +44,10 @@ def event_intervals(events)
   intervals << Date.today - events.last['time'].to_date
 
   intervals.each_with_index.map { |interval, i| {x: i, y: interval.to_i} }
+end
+
+def send_intervals_for_tracker(trackers, events, tracker_label, smashing_event_name)
+  tracker_events = events_for_tracker(trackers, events, tracker_label)
+  interval_points = event_intervals(tracker_events.last(10))
+  send_event(smashing_event_name, {points: interval_points, graphtype: 'bar'})
 end
