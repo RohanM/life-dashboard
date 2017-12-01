@@ -46,6 +46,6 @@ SCHEDULER.every '1m' do
   points_last_week = points_last_week.sort_by {|p| p[:x]}
 
   send_event('meditation-last-year', {points: points_last_year})
-  send_event('meditation-last-month', {points: points_last_month})
+  send_event('meditation-last-month', {points: points_last_month, graphtype: 'bar'})
   send_event('meditation-last-week', {points: points_last_week, graphtype: 'bar'})
 end
