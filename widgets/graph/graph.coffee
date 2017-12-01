@@ -12,6 +12,7 @@ class Dashing.Graph extends Dashing.Widget
       element: @node
       width: container.width()
       height: container.height()
+      min: @get("y_min")
       gapSize: 0.25
       renderer: @get("graphtype")
       series: [
