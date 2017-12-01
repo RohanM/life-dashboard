@@ -11,6 +11,3 @@ Run this at least once.
 
 
 ## TODO
-
-- Store CSVs in data/
-- Store cookies in tmp/
