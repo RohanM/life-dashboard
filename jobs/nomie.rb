@@ -9,7 +9,9 @@ require 'pry'
 SCHEDULER.every '1m' do |job|
   nomie = Nomie.new
 
-  nomie.send_intervals_for_tracker("Feeling connected / supported", 'nomie-social-intervals')
+  nomie.send_intervals_for_tracker('One-on-one hangout', 'nomie-social-one-on-one')
+  nomie.send_intervals_for_tracker('Group catchup', 'nomie-social-group-catchup')
+  nomie.send_intervals_for_tracker('Party!', 'nomie-social-party')
 end
 
 
@@ -55,6 +57,7 @@ class Nomie
   def send_intervals_for_tracker(tracker_label, smashing_event_name)
     tracker_events = events_for_tracker(tracker_label)
     interval_points = event_intervals(tracker_events.last(10))
+
     send_event(smashing_event_name, {points: interval_points, graphtype: 'bar'})
   end
 end
