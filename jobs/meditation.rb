@@ -6,6 +6,7 @@ SCHEDULER.every '1m' do
   minutes_per_day = {}
   minutes_per_month = {}
 
+  # -- Read sessions from CSV
   CSV.foreach('data/insight_sessions_export.csv') do |row|
     begin
       started_at = Time.strptime "#{row[0]} +0000", "%m/%d/%Y %H:%M:%S %z"
@@ -24,6 +25,12 @@ SCHEDULER.every '1m' do
     end
   end
 
+  # Convert last month to average thus far
+  latest_month = minutes_per_month.keys.max
+  days_in_current_month = Date.today.end_of_month.day
+  minutes_per_month[latest_month] = minutes_per_month[latest_month] / Date.today.day * days_in_current_month
+
+  # -- Build graph points
   points_monthly = minutes_per_month.keys.sort.map do |month|
     {x: month.to_time.to_i, y: minutes_per_month[month] / Time.days_in_month(month.month, month.year)}
   end
