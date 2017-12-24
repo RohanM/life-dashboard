@@ -12,7 +12,7 @@ class Dashing.EditMeter extends Dashing.Widget
     meter.attr("data-bgcolor", meter.css("background-color"))
     meter.attr("data-fgcolor", meter.css("color"))
     meter.knob
-      release: (value) =>
+      release: $.throttle 1000, (value) =>
         @save(value)
 
   save: (value) ->
