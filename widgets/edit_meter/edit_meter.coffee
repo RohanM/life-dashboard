@@ -1,7 +1,5 @@
 class Dashing.EditMeter extends Dashing.Widget
 
-  @accessor 'value', Dashing.AnimatedValue
-
   constructor: ->
     super
     @prefix = @get('prefix') || ''
@@ -16,6 +14,9 @@ class Dashing.EditMeter extends Dashing.Widget
     meter.knob
       format: (value) =>
         "#{@prefix}#{value}#{@suffix}"
+      parse: (value) =>
+        value = value.replace('$', '') if typeof value is 'string'
+        parseFloat(value)
 
       release: $.throttle 1000, (value) =>
         @save(value)
