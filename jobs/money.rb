@@ -16,8 +16,10 @@ def load_expenses
 end
 
 def recent(expenses)
+  most_recent = expenses.map { |e| e[:date] }.max
+
   expenses.
-    select { |e| e[:date] > 1.month.ago }.
+    select { |e| e[:date] > (most_recent - 1.month) }.
     sort_by { |e| e[:date] }
 end
 
