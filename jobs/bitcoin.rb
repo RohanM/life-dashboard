@@ -42,9 +42,9 @@ SCHEDULER.every '1d' do
   mean = running_mean(btc_daily_price, 200)
   multiple = mayer_multiple(price, mean)
 
-  multiple = multiple.select { |d| d[0] > 1.year.ago }
+  points_all_time = multiple.map { |d| {x: d[0].to_time.to_i, y: d[1].round(2)} }
+  points_6_mo = points_all_time.select { |p| Time.at(p[:x]) > 6.months.ago }
 
-  points = multiple.map { |d| {x: d[0].to_time.to_i, y: d[1].round(2)} }
-
-  send_event('bitcoin-mayer-multiple', {points: points})
+  send_event('bitcoin-mayer-multiple-all-time', {points: points_all_time})
+  send_event('bitcoin-mayer-multiple-6-mo', {points: points_6_mo})
 end
