@@ -1,5 +1,6 @@
 require 'net/http'
 require 'json'
+require 'active_support/time'
 require 'pry'
 
 
@@ -22,15 +23,28 @@ def running_mean(data, window_size)
   data.each_cons(window_size).map { |window|
     [
       window.max { |d| d[0] }[0],
-      (window.sum { |d| d[1] } / window.length).round(0)
+      window.sum { |d| d[1] } / window.length
     ]
   }
 end
 
+def mayer_multiple(price, running_mean)
+  running_mean.map do |mean|
+    [
+      mean[0],
+      price.find { |price| price[0] == mean[0] }[1] / mean[1]
+    ]
+  end
+end
 
 SCHEDULER.every '1d' do
-  data = running_mean(btc_daily_price, 200)
-  points = data.map { |d| {x: d[0].to_time.to_i, y: d[1]} }
+  price = btc_daily_price
+  mean = running_mean(btc_daily_price, 200)
+  multiple = mayer_multiple(price, mean)
 
-  send_event('bitcoin-running-mean-200', {points: points})
+  multiple = multiple.select { |d| d[0] > 1.year.ago }
+
+  points = multiple.map { |d| {x: d[0].to_time.to_i, y: d[1].round(2)} }
+
+  send_event('bitcoin-mayer-multiple', {points: points})
 end
