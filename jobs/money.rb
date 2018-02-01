@@ -27,8 +27,9 @@ def expenses_by_tag(expenses)
   expenses_by_tag = {}
 
   expenses.each do |e|
-    expenses_by_tag[e[:tag]] ||= 0
-    expenses_by_tag[e[:tag]] += e[:amount]
+    tag = e[:tag] || 'none'
+    expenses_by_tag[tag] ||= 0
+    expenses_by_tag[tag] += e[:amount]
   end
 
   expenses_by_tag
