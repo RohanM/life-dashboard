@@ -1,5 +1,9 @@
 # Life Dashboard
 
+## Running locally
+
+`smashing start`
+
 ## Crontab
 
 Install crontab lines:
