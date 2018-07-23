@@ -2,6 +2,12 @@ require 'csv'
 require 'active_support/time'
 require 'pry'
 
+
+def duration_to_minutes(duration)
+  time = Time.parse(duration)
+  time.hour * 60 + time.min
+end
+
 SCHEDULER.every '1m' do
   minutes_per_day = {}
   minutes_per_month = {}
@@ -10,15 +16,15 @@ SCHEDULER.every '1m' do
   CSV.foreach('data/insight_sessions_export.csv') do |row|
     begin
       started_at = Time.strptime "#{row[0]} +0000", "%m/%d/%Y %H:%M:%S %z"
-      duration = row[1]
+      duration = duration_to_minutes(row[1])
       activity = row[2]
       preset = row[3]
 
       minutes_per_day[started_at.to_date] ||= 0
-      minutes_per_day[started_at.to_date] += duration.to_i
+      minutes_per_day[started_at.to_date] += duration
 
       minutes_per_month[started_at.beginning_of_month.to_date] ||= 0
-      minutes_per_month[started_at.beginning_of_month.to_date] += duration.to_i
+      minutes_per_month[started_at.beginning_of_month.to_date] += duration
 
     rescue ArgumentError, TypeError => e
       # Ignore header row where time doesn't parse
