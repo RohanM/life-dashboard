@@ -1,11 +1,8 @@
 class Dashing.EditText extends Dashing.Widget
 
   ready: ->
-    # Pick whether to display text or editing interface first
-    if @get('content')?
-      $(@node).find(".content").show()
-    else
-      $(@node).find(".edit").show()
+    # Display content first
+    $(@node).find(".content").show()
 
     # Wire up the things
     $(@node).find(".content").click =>
