@@ -12,6 +12,7 @@ SCHEDULER.every '1m' do
   end
 
   km_per_month_points = monthly_km_points(workouts)
+  km_per_month_5_years_points = km_per_month_points.select { |p| p[:x] >= 5.years.ago.to_i }
   km_per_month_points.select! { |p| p[:x] >= 1.year.ago.to_i }
 
   recent_workouts = workouts.sort_by {|w| w[:date]}.last(10)
@@ -19,6 +20,7 @@ SCHEDULER.every '1m' do
   interval_points = intervals(recent_workouts)
   pace_points = paces(recent_workouts)
 
+  send_event('map-my-run-5-years', {points: km_per_month_5_years_points})
   send_event('map-my-run-monthly', {points: km_per_month_points})
   send_event('map-my-run-intervals', {points: interval_points, graphtype: 'bar'})
   send_event('map-my-run-pace', {points: pace_points, y_min: 4.75})
